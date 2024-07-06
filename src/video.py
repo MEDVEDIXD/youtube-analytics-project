@@ -13,10 +13,17 @@ class Video:
                                                id=id_video
                                                ).execute()
 
-        self.video_title = video_response['items'][0]['snippet']['title']
-        self.video_url = f'https://www.youtube.com/watch?v={self.id_video}'
-        self.video_view_count = video_response['items'][0]['statistics']['viewCount']
-        self.video_likes_count = video_response['items'][0]['statistics']['likeCount']
+        try:
+            self.video_title = video_response['items'][0]['snippet']['title']
+            self.video_url = f'https://www.youtube.com/watch?v={self.id_video}'
+            self.video_view_count = video_response['items'][0]['statistics']['viewCount']
+            self.video_likes_count = video_response['items'][0]['statistics']['likeCount']
+
+        except IndexError:
+            self.video_title = None
+            self.video_url = None
+            self.video_view_count = None
+            self.video_likes_count = None
 
     def __str__(self):
         return f'{self.video_title}'
